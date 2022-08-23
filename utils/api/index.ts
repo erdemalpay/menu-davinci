@@ -19,7 +19,6 @@ function printStackTrace() {
 // T = ResponseType
 export async function get<T>({ path }: BaseRequest): Promise<T> {
   const headers: HeadersInit = { "Content-Type": "application/json" };
-  console.log({ path: `${baseURL}${path}` });
   const { data } = await axios.get<T>(`${baseURL}${path}`, {
     headers,
   });

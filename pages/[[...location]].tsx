@@ -6,10 +6,11 @@ import { MenuItem } from "../utils/types/Menu";
 import Image from "next/image";
 import titleBackground from "../public/title-background.png";
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const location = Number(context.params?.location);
   const items = await getMenuItems();
 
-  return { props: { items } };
+  return { props: { items, location } };
 };
 
 interface ItemGroup {
@@ -17,7 +18,7 @@ interface ItemGroup {
   items: MenuItem[];
 }
 
-const Home = ({ items }: { items: MenuItem[] }) => {
+const Home = ({ items, location }: { items: MenuItem[]; location: number }) => {
   const [itemGroups, setItemGroups] = useState<ItemGroup[]>([]);
 
   useEffect(() => {
@@ -145,19 +146,30 @@ const Home = ({ items }: { items: MenuItem[] }) => {
             key={itemGroup.category}
             className="flex justify-between text-light-brown text-center"
           >
-            <div className="flex flex-col mt-5 lg:mt-20 mx-2 lg:mx-20 w-full overflow-y-auto">
-              <div className="text-lg font-bold lg:text-3xl bg-dark-brown font-germania">
+            <div className="flex flex-col mt-5 lg:mt-10 mx-2 lg:mx-20 w-full overflow-y-auto">
+              <div className="text-lg font-bold lg:text-2xl bg-dark-brown font-merriweather">
                 <h1>{itemGroup.category}</h1>
               </div>
-              <div className="flex flex-col text-center text-lg font-merriweather text-black">
+              <div className="flex flex-col text-lg font-merriweather text-black">
                 {itemGroup.items.map((item) => (
                   <div key={item._id} className="flex">
-                    <h2 className="py-2 border-dark-brown border-b-2 w-full">
+                    <h2
+                      className={`py-2 border-dark-brown border-b-2 w-full ${
+                        location ? "text-start" : "text-center"
+                      } px-4`}
+                    >
                       {item.name}
                     </h2>
-                    <h2 className="py-2 border-dark-brown border-b-2 w-full">
-                      {item.priceBahceli}
-                    </h2>
+                    {location === 1 && (
+                      <h2 className="py-2 border-dark-brown border-b-2 w-full text-end px-4">
+                        {item.priceBahceli}
+                      </h2>
+                    )}
+                    {location === 2 && (
+                      <h2 className="py-2 border-dark-brown border-b-2 w-full text-end px-4">
+                        {item.priceNeorama}
+                      </h2>
+                    )}
                   </div>
                 ))}
               </div>
