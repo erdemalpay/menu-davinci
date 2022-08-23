@@ -47,7 +47,7 @@ const Home = ({ items, location }: { items: MenuItem[]; location: number }) => {
   return (
     <div>
       <Head>
-        <title>{`Da Vinci'de bu oyun var mı?`}</title>
+        <title>{`Da Vinci Menu`}</title>
         <link
           rel="apple-touch-icon"
           sizes="57x57"
