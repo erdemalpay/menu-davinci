@@ -1,5 +1,6 @@
 export type MenuCategory = {
   name: string;
+  order: number;
 };
 
 export type MenuItem = {

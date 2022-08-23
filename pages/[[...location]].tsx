@@ -15,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 interface ItemGroup {
   category: string;
+  order: number;
   items: MenuItem[];
 }
 
@@ -33,11 +34,13 @@ const Home = ({ items, location }: { items: MenuItem[]; location: number }) => {
       } else {
         const newGroup = {
           category: category.name,
+          order: category.order,
           items: [item],
         };
         itemGroups.push(newGroup);
       }
     });
+    itemGroups.sort((a, b) => (a.order > b.order ? 1 : -1));
     setItemGroups(itemGroups);
   }, [items]);
 
