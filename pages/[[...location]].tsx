@@ -122,7 +122,7 @@ const Home = ({ items, location }: { items: MenuItem[]; location: number }) => {
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <div className="w-full h-screen flex flex-col bg-[#FBEEE2]">
+      <div className="w-full h-full flex flex-col bg-[#FBEEE2]">
         <div className="flex w-full h-16">
           <div className="relative w-full">
             <Image
