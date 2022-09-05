@@ -154,27 +154,32 @@ const Home = ({ items, location }: { items: MenuItem[]; location: number }) => {
                 <h1>{itemGroup.category}</h1>
               </div>
               <div className="flex flex-col text-lg font-merriweather text-black">
-                {itemGroup.items.map((item) => (
-                  <div key={item._id} className="flex">
-                    <h2
-                      className={`py-2 border-dark-brown border-b-2 w-full ${
-                        location ? "text-start" : "text-center"
-                      } px-4`}
-                    >
-                      {item.name}
-                    </h2>
-                    {location === 1 && (
-                      <h2 className="py-2 border-dark-brown border-b-2 w-full text-end px-4">
-                        {item.priceBahceli}
+                {itemGroup.items.map((item) => {
+                  const price =
+                    (location === 1 && item.priceBahceli) ||
+                    (location === 2 && item.priceNeorama);
+                  console.log({ price });
+                  return !location || price ? (
+                    <div key={item._id} className="flex">
+                      <h2
+                        className={`py-2 border-dark-brown border-b-2 w-full ${
+                          location ? "text-start" : "text-center"
+                        } px-4`}
+                      >
+                        {item.name}
                       </h2>
-                    )}
-                    {location === 2 && (
-                      <h2 className="py-2 border-dark-brown border-b-2 w-full text-end px-4">
-                        {item.priceNeorama}
-                      </h2>
-                    )}
-                  </div>
-                ))}
+                      {price ? (
+                        <h2 className="py-2 border-dark-brown border-b-2 w-full text-end px-4">
+                          {price}
+                        </h2>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  );
+                })}
               </div>
             </div>
           </div>
